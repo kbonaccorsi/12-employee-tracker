@@ -1,0 +1,25 @@
+{
+  "name": "12-employee-tracker",
+  "version": "1.0.0",
+  "description": "## Description Build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.",
+  "main": "index.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbonaccorsi/12-employee-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kbonaccorsi/12-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/kbonaccorsi/12-employee-tracker#readme"
+}
