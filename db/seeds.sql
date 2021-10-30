@@ -8,9 +8,9 @@ VALUES
 
 INSERT INTO role (id, title, salary, department_id)
 VALUES
-    (111, "titleone", 111.11, 1),
-    (121, "titletwo", 222.22, 2),
-    (131, "titlethree", 333.33, 3);
+    (111, "roleone", 111.11, 1),
+    (121, "roletwo", 222.22, 2),
+    (131, "rolethree", 333.33, 3);
 
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
