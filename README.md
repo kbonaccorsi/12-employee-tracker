@@ -8,40 +8,11 @@ Walkthrough video:
 GitHub Repo:
 
 -Need:
-    <!-- [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries -->
-    <!-- [Inquirer package](https://www.npmjs.com/package/inquirer) to interact with the user via the command line -->
-    <!-- [console.table package](https://www.npmjs.com/package/console.table) to print MySQL rows to the console -->
+    
     -make queries asynchronous. MySQL2 exposes a `.promise()` function on Connections to upgrade an existing non-Promise connection to use Promises. To learn more and make your queries asynchronous, refer to the [npm documentation on MySQL2](https://www.npmjs.com/package/mysql2).
     -separate file that contains functions for performing specific SQL queries
         -A constructor function or class could be helpful for organizing these
-    <!-- -seeds.sql -->
-    <!-- -query.sql -->
-    <!-- -schema.sql -->
-        <!-- -DROP DATABASE IF EXISTS employees -->
-        <!-- -CREATE DATABASE employees -->
-
-        <!-- -CREATE TABLES -->
-            <!-- -table department -->
-                <!-- * `id`: `INT  -->
-                <!-- * `name`: `VARCHAR(30)` to hold department name -->
-                <!-- *PRIMARY KEY`(id) -->
-
-            <!-- -table role -->
-                <!-- * `id`: `INT` -->
-                <!-- * `title`: `VARCHAR(30)` to hold role title -->
-                <!-- * `salary`: `DECIMAL` to hold role salary -->
-                <!-- * `department_id`: `INT` to hold reference to department role belongs to -->
-                <!-- -primary key (id) -->
-                <!-- -foreign key ? -->
-
-            <!-- -table employees -->
-                <!-- * `id`: `INT PRIMARY KEY` -->
-                <!-- * `first_name`: `VARCHAR(30)` to hold employee first name -->
-                <!-- * `last_name`: `VARCHAR(30)` to hold employee last name -->
-                <!-- * `role_id`: `INT` to hold reference to employee role -->
-                <!-- * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)-id -->
-                <!-- -primary key (id) -->
-                <!-- -foreign key ? -->
+    
         JOIN commands: at least 3 (lesson 26)
 
     - command-line application accepts user input
@@ -122,3 +93,38 @@ Try to add some additional functionality to your application, such as the abilit
 * The walkthrough video must demonstrate how a user would invoke the application from the command line.
 
 * The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
+
+
+
+
+<!-- [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries -->
+<!-- [Inquirer package](https://www.npmjs.com/package/inquirer) to interact with the user via the command line -->
+<!-- [console.table package](https://www.npmjs.com/package/console.table) to print MySQL rows to the console -->
+<!-- -seeds.sql -->
+<!-- -query.sql -->
+<!-- -schema.sql -->
+<!-- -DROP DATABASE IF EXISTS employees -->
+<!-- -CREATE DATABASE employees -->
+
+<!-- -CREATE TABLES -->
+<!-- -table department -->
+<!-- * `id`: `INT  -->
+<!-- * `name`: `VARCHAR(30)` to hold department name -->
+<!-- *PRIMARY KEY`(id) -->
+
+<!-- -table role -->
+<!-- * `id`: `INT` -->
+<!-- * `title`: `VARCHAR(30)` to hold role title -->
+<!-- * `salary`: `DECIMAL` to hold role salary -->
+<!-- * `department_id`: `INT` to hold reference to department role belongs to -->
+<!-- -primary key (id) -->
+<!-- -foreign key ? -->
+
+<!-- -table employees -->
+<!-- * `id`: `INT PRIMARY KEY` -->
+<!-- * `first_name`: `VARCHAR(30)` to hold employee first name -->
+<!-- * `last_name`: `VARCHAR(30)` to hold employee last name -->
+<!-- * `role_id`: `INT` to hold reference to employee role -->
+<!-- * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)-id -->
+<!-- -primary key (id) -->
+<!-- -foreign key ? -->
