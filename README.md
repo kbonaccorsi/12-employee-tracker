@@ -17,31 +17,31 @@ GitHub Repo:
     <!-- -seeds.sql -->
     <!-- -query.sql -->
     <!-- -schema.sql -->
-        -DROP DATABASE IF EXISTS employees
-        -CREATE DATABASE employees
+        <!-- -DROP DATABASE IF EXISTS employees -->
+        <!-- -CREATE DATABASE employees -->
 
-        -CREATE TABLES
-            -table department
-                * `id`: `INT 
-                * `name`: `VARCHAR(30)` to hold department name
-                *PRIMARY KEY`(id)
+        <!-- -CREATE TABLES -->
+            <!-- -table department -->
+                <!-- * `id`: `INT  -->
+                <!-- * `name`: `VARCHAR(30)` to hold department name -->
+                <!-- *PRIMARY KEY`(id) -->
 
-            -table role
-                * `id`: `INT`
-                * `title`: `VARCHAR(30)` to hold role title
-                * `salary`: `DECIMAL` to hold role salary
-                * `department_id`: `INT` to hold reference to department role belongs to
-                -primary key (id)
-                -foreign key ?
+            <!-- -table role -->
+                <!-- * `id`: `INT` -->
+                <!-- * `title`: `VARCHAR(30)` to hold role title -->
+                <!-- * `salary`: `DECIMAL` to hold role salary -->
+                <!-- * `department_id`: `INT` to hold reference to department role belongs to -->
+                <!-- -primary key (id) -->
+                <!-- -foreign key ? -->
 
-            -table employees
-                * `id`: `INT PRIMARY KEY`
-                * `first_name`: `VARCHAR(30)` to hold employee first name
-                * `last_name`: `VARCHAR(30)` to hold employee last name
-                * `role_id`: `INT` to hold reference to employee role
-                * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)-id
-                -primary key (id)
-                -foreign key ?
+            <!-- -table employees -->
+                <!-- * `id`: `INT PRIMARY KEY` -->
+                <!-- * `first_name`: `VARCHAR(30)` to hold employee first name -->
+                <!-- * `last_name`: `VARCHAR(30)` to hold employee last name -->
+                <!-- * `role_id`: `INT` to hold reference to employee role -->
+                <!-- * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)-id -->
+                <!-- -primary key (id) -->
+                <!-- -foreign key ? -->
         JOIN commands: at least 3 (lesson 26)
 
     - command-line application accepts user input
