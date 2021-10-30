@@ -17,6 +17,8 @@ const db = mysql.createConnection(
     console.log('Connected to the team_db database.')
 );
 
+
+
 app.listen(PORT, () => {
     console.log('Server running on port ${PORT}');
 });
