@@ -19,3 +19,7 @@ VALUES
     (1, "first", "last", 11, 111),
     (2, "first", "last", 22, 222),
     (3, "first", "last", 33, 333);
+
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee;
