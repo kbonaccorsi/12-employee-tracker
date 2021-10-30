@@ -11,8 +11,29 @@ const db = mysql.createConnection(
     console.log('Connected to the team_db database.')
 );
 
-inquirer
-.prompt ([
-    {},
-]);
-.then()
+//begins the process, and gives users the first prompt
+function init() {
+    initialPrompting();
+}
+
+function initialPrompting() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'action',
+            message: 'What do you want to do?',
+            choices: ['add a department', 'add a role', 'add an employee', 'update an employee role']
+        }
+    ])
+    .then(response) => {
+        switch() {
+            case(): ()
+                break;
+            case(): ()
+                break;
+            default;
+        }
+    }
+}
+
+init()
