@@ -6,7 +6,7 @@ VALUES
     (2, "department2"),
     (3, "department3");
 
-INSERT INTO role (id, title, salary, department_id)
+INSERT INTO role (id, role_title, salary, department_id)
 VALUES
     (111, "titleone", 111.11, 1),
     (121, "titletwo", 222.22, 2),
