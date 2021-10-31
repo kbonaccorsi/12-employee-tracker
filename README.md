@@ -44,7 +44,6 @@ Try to add some additional functionality to your application, such as the abilit
 
 
 
-
 * The walkthrough video must show all of the technical acceptance criteria being met.
 
 * The walkthrough video must demonstrate how a user would invoke the application from the command line.
@@ -55,7 +54,7 @@ Try to add some additional functionality to your application, such as the abilit
 
 
 
-completed items:
+<!-- completed items:
 
 [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries
 [Inquirer package](https://www.npmjs.com/package/inquirer) to interact with the user via the command line
@@ -146,3 +145,8 @@ DESCRIBE employees
 -information is updated in the database 
 
 
+
+
+
+
+ -->

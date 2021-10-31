@@ -81,7 +81,7 @@ function viewRoles() {
 function viewEmployees() {
     db.connect(function (err) {
         if (err) throw err;
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         let sql = 'SELECT e.id AS Id, e.first_name AS firstName, e.last_name AS lastName, role.title AS job, department.name AS department, role.salary AS salary, m.first_name AS mFirstName, m.last_name AS mLastName FROM employee e JOIN role ON e.role_id = role.id JOIN department ON role.department_id = department.id INNER JOIN employee m ON m.id =e.manager_id ORDER BY e.id;';
         db.query(sql, function (err, result) {
             if (err) throw err;
@@ -91,18 +91,30 @@ function viewEmployees() {
     });
 };
 
-// function addDepartment() {
-//     inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'department',
-//             message: 'What is the name of the department you would like to add?'
-//         }
-//     ])
-//     .then((response) => {
 
-//     });
-// };
+
+//////////////error is being thrown after entering department name.  Try to make a class???
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department',
+            message: 'What is the name of the department you would like to add?'
+        }
+    ])
+        .then((response) => {
+            db.connect(function (err) {
+                if (err) throw err;
+                console.log('Connected!');
+                let sql = `INSERT INTO department (name) VALUES ( '${response.department}')`;
+                db.query(sql, function (err, result) {
+                    if (err) throw err;
+                    console.log("department added!, id: " + result.insertId);
+                    initialPrompting();
+                });
+            });
+        });
+};
 
 // function addRole() {
 //     .prompt
