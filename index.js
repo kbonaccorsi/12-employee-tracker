@@ -29,7 +29,7 @@ function initialPrompting() {
             type: 'list',
             name: 'action',
             message: 'What do you want to do?',
-            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role'],
+            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
         }
     ])
         .then((response) => {
@@ -119,13 +119,23 @@ function addDepartment() {
         });
 };
 
+// table = department
+//     id = autoIncrement
+//     name = input from user (inquirer prompt)
+
+const departmentName = [];
+let row = [];
+const {id, name} = department;
+
+departmentLists= SELECT * FROM department;
+result();
+
+for (const {id, name} of department) {
+    let {id, name} = row[i];
+    departmentName.push(name);
+}
 
 function addRole() {
-    db.connect(function (err) {
-        if (err) throw err;
-        console.log('please add role');
-        let sql = `'SELECT name FROM department';
-    }
     inquirer.prompt([
         {
             type: 'input',
@@ -135,22 +145,26 @@ function addRole() {
         {
             type: 'number',
             name: 'salary',
-            message: "What is the salary for this role?"
+            message: 'What is the salary for this role? Please enter amount including decimal.'
         },
         {
             type: 'list',
             name: 'department',
-            choices: `'${sql}'`
+            choices: [departmentName]
         }
     ])
-    .then((response) => {
-            db.query(response, function(err, result) {
+        .then((response) => {
+            db.connect(function (err) {
                 if (err) throw err;
-                console.log("role added!, id: " + result.insertId);
-                initialPrompting();
-            })
-        })
-    })
+                console.log('Connected!');
+                let sql = `INSERT INTO role (title, salary, department_id) VALUES ('${response.role}', '${response.number}', '${response.department}')`;
+                db.query(sql, function (err, result) {
+                    if (err) throw err;
+                    console.log("role added!, id: " + result.insertId);
+                    initialPrompting();
+                });
+            });
+        });
 };
 
 
@@ -182,8 +196,19 @@ function addRole() {
 //              message: 'What is the last name of this employee\'s manager?'
 //          }
 //     ]}
-// .then
-//     
+// .then((response) => {
+//     db.connect(function (err) {
+//         if (err) throw err;
+//         console.log('Connected!');
+//         let sql = `INSERT INTO department (name) VALUES ( '${response.department}')`;
+//         db.query(sql, function (err, result) {
+//             if (err) throw err;
+//             console.log("department added!, id: " + result.insertId);
+//             initialPrompting();
+//         });
+//     });
+// });
+    
 // };
 
 // function updateEmployee() {
@@ -195,5 +220,16 @@ function addRole() {
 //          -db.query(update_employee.sql) 
 // };
 
+function updateDatabase() {
+    const db = mysql2.createConnection(
+        {
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'team_db'
+        },
+        console.log('Connected to the team_db database.')
+    );
+};
 
 init()
