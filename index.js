@@ -22,6 +22,7 @@ function init() {
     initialPrompting();
 }
 
+//menu of options user can do
 function initialPrompting() {
     inquirer.prompt([
         {
@@ -52,6 +53,7 @@ function initialPrompting() {
         });
 };
 
+//allows user to view all departments
 function viewDepartments() {
     db.connect(function (err) {
         if (err) throw err;
@@ -65,6 +67,7 @@ function viewDepartments() {
     });
 };
 
+//allows user to view table of all roles
 function viewRoles() {
     db.connect(function (err) {
         if (err) throw err;
@@ -78,6 +81,7 @@ function viewRoles() {
     });
 };
 
+//allows user to view table of all employees
 function viewEmployees() {
     db.connect(function (err) {
         if (err) throw err;
@@ -92,8 +96,7 @@ function viewEmployees() {
 };
 
 
-
-//////////////error is being thrown after entering department name.  Try to make a class???
+//adds a new department to the department table
 function addDepartment() {
     inquirer.prompt([
         {
@@ -116,15 +119,36 @@ function addDepartment() {
         });
 };
 
-// function addRole() {
-//     .prompt
-//     -enter the name
-//     -enter the salary
-//     -enter the department for the role
-// .then
-//     -add that role to the database
-//          -db.query(insert_role.sql)
-// };
+
+function addRole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'role',
+            message: 'What is the name of the role you would like to add?'
+        },
+        {
+            type: 'number',
+            name: 'salary',
+            message: "What is the salary for this role?"
+        },
+        {
+            type: 'list',
+            name: 'department',
+            choices: 'SELECT department.name'
+        }
+    ])
+    .then((response) => {
+        db.connect(function (err) {
+            if (err) throw err;
+            console.log('Connected!');
+            let sql = `INSERT INTO role (title, salary, department_id) VALUES ('${response.role}', '${response.salary}', '${response.department}')`;
+            db.query(sql, function(err, result) {
+                if (err) throw err;
+                console.log("role added")
+            })
+        })
+    })
 
 // function addEmployee() {
 //     .prompt
