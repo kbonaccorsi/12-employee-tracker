@@ -121,6 +121,11 @@ function addDepartment() {
 
 
 function addRole() {
+    db.connect(function (err) {
+        if (err) throw err;
+        console.log('please add role');
+        let sql = `'SELECT name FROM department';
+    }
     inquirer.prompt([
         {
             type: 'input',
@@ -135,30 +140,50 @@ function addRole() {
         {
             type: 'list',
             name: 'department',
-            choices: 'SELECT department.name'
+            choices: `'${sql}'`
         }
     ])
     .then((response) => {
-        db.connect(function (err) {
-            if (err) throw err;
-            console.log('Connected!');
-            let sql = `INSERT INTO role (title, salary, department_id) VALUES ('${response.role}', '${response.salary}', '${response.department}')`;
-            db.query(sql, function(err, result) {
+            db.query(response, function(err, result) {
                 if (err) throw err;
-                console.log("role added")
+                console.log("role added!, id: " + result.insertId);
+                initialPrompting();
             })
         })
     })
+};
+
 
 // function addEmployee() {
-//     .prompt
-//     -enter the employee’s first name
-//     -enter the employee's last name
-//     -enter the employee's role
-//     -enter the manager who will oversee the employee
+//     inquirer.prompt {[
+//         {
+//             type: 'input',
+//             name: 'eFirstName',
+//             message: 'What is the employee\'s first name?'
+//         },
+//         {
+//             type: 'input',
+//             name: 'eLastName',
+//             message: 'What is the employee\'s last name?'
+//         },
+//         {
+//             type: 'list',
+//             name: 'role',
+//           message: 'What role will the employee have?'
+//         },
+//          {
+//              type: 'input',
+//              name: 'mFirstName',
+//              message: 'What is the first name of this employee\'s manager?'
+//           },
+//         {
+//              type: 'input',
+//              name: 'mLastName',
+//              message: 'What is the last name of this employee\'s manager?'
+//          }
+//     ]}
 // .then
-//     -add employee to the database
-//          -db.query(insert_employee.sql)
+//     
 // };
 
 // function updateEmployee() {
