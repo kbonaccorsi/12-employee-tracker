@@ -1,3 +1,7 @@
+SOURCE db/schema.sql;
+
+SOURCE db/seeds.sql;
+
 USE team_db;
 
 INSERT INTO department (id, name)

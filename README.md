@@ -9,6 +9,20 @@ GitHub Repo:
 
 -Need:
     -make queries asynchronous. MySQL2 exposes a `.promise()` function on Connections to upgrade an existing non-Promise connection to use Promises. To learn more and make your queries asynchronous, refer to the [npm documentation on MySQL2](https://www.npmjs.com/package/mysql2).
+
+<!-- // get the client
+const mysql = require('mysql2');
+// create the connection
+const con = mysql.createConnection(
+  {host:'localhost', user: 'root', database: 'test'}
+);
+con.promise().query("SELECT 1")
+  .then( ([rows,fields]) => {
+    console.log(rows);
+  })
+  .catch(console.log)
+  .then( () => con.end()); -->
+
     -separate file that contains functions for performing specific SQL queries
         -A constructor function or class could be helpful for organizing these
     
