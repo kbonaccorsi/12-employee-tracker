@@ -82,7 +82,7 @@ function viewEmployees() {
     db.connect(function (err) {
         if (err) throw err;
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-        let sql = 'SELECT employee.id AS employeeId, employee.first_name AS firstName, employee.last_name AS lastName, role.title AS jobTitle, department.name AS department, role.salary AS salary, employee.manager_id AS manager FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id;';
+        let sql = 'SELECT e.id AS Id, e.first_name AS firstName, e.last_name AS lastName, role.title AS job, department.name AS department, role.salary AS salary, m.first_name AS mFirstName, m.last_name AS mLastName FROM employee e JOIN role ON e.role_id = role.id JOIN department ON role.department_id = department.id INNER JOIN employee m ON m.id =e.manager_id ORDER BY e.id;';
         db.query(sql, function (err, result) {
             if (err) throw err;
             console.table(result);

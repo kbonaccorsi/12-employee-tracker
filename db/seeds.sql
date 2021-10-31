@@ -2,22 +2,22 @@ USE team_db;
 
 INSERT INTO department (id, name)
 VALUES
-    (1, "department1"),
-    (2, "department2"),
-    (3, "department3");
+    (1, "Leadership"),
+    (2, "Teachers"),
+    (3, "Staff");
 
 INSERT INTO role (id, title, salary, department_id)
 VALUES
-    (111, "roleone", 111.11, 1),
-    (121, "roletwo", 222.22, 2),
-    (131, "rolethree", 333.33, 3);
+    (111, "Principal", 111.11, 1),
+    (121, "4th grade", 222.22, 2),
+    (131, "Paraprofessional", 333.33, 3);
 
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES
-    (1, "firstone", "lastone", 111, 1),
-    (2, "firsttwo", "lasttwo", 121, 2),
-    (3, "firstthree", "lastthree", 131, 3);
+    (1, "Fred", "Flintstone", 111, 1),
+    (2, "Barney", "Rubble", 121, 1),
+    (3, "Joanne", "Schmo", 131, 1);
 
 
 
