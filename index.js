@@ -48,7 +48,7 @@ function initialPrompting() {
                     break;
                 case ('update an employee role'): updateEmployee()
                     break;
-                case ('view all department names'): getDepartmentNames()
+                case ('view all department names'): allDepartmentNames()
                     break;
                 default:
             }
@@ -65,7 +65,6 @@ function viewDepartments() {
             if (err) throw err;
             console.table(result);
             initialPrompting();
-            getDepartmentNames();
         });
     });
 };
@@ -122,21 +121,21 @@ function addDepartment() {
         });
 };
 
-function getDepartmentNames() {
-    db.connect(function (err) {
+function allDepartmentNames() {
+    return db.connect(function (err) {
         if (err) throw err;
         console.log('~~~~~~~~~~~~~~~~~~~');
         return db.promise().query('SELECT department.name FROM department')
     })
         .then(([rows]) => {
             let departments = rows;
-            const departmentLists = departments.map(({name}) => ({
-                name: name
-            }));
-            departmentNames.push(departmentLists)
-            console.log(departmentNames)
-        })
+            const departmentLists = departments.map(({ name }) => name);
+            departmentNames.push(departmentLists);
+            return(departmentLists);
+    });
 };
+
+
 
 
 function addRole() {
@@ -154,7 +153,8 @@ function addRole() {
         {
             type: 'list',
             name: 'department',
-            choices: [departmentLists]
+            message: 'Which department will this role be part of?',
+            choices: currentAnswers=> (allDepartmentNames())
         }
     ])
         .then((response) => {
