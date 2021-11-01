@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 const mysql2 = require('mysql2');
 const cTable = require('console.table');
-
+const departmentNames = [];
 
 //connects to database
 const db = mysql2.createConnection(
@@ -29,7 +29,7 @@ function initialPrompting() {
             type: 'list',
             name: 'action',
             message: 'What do you want to do?',
-            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
+            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role', 'view all department names']
         }
     ])
         .then((response) => {
@@ -48,6 +48,8 @@ function initialPrompting() {
                     break;
                 case ('update an employee role'): updateEmployee()
                     break;
+                case ('view all department names'): getDepartmentNames()
+                    break;
                 default:
             }
         });
@@ -63,6 +65,7 @@ function viewDepartments() {
             if (err) throw err;
             console.table(result);
             initialPrompting();
+            getDepartmentNames();
         });
     });
 };
@@ -119,21 +122,22 @@ function addDepartment() {
         });
 };
 
-// table = department
-//     id = autoIncrement
-//     name = input from user (inquirer prompt)
+function getDepartmentNames() {
+    db.connect(function (err) {
+        if (err) throw err;
+        console.log('~~~~~~~~~~~~~~~~~~~');
+        return db.promise().query('SELECT department.name FROM department')
+    })
+        .then(([rows]) => {
+            let departments = rows;
+            const departmentLists = departments.map(({name}) => ({
+                name: name
+            }));
+            departmentNames.push(departmentLists)
+            console.log(departmentNames)
+        })
+};
 
-const departmentName = [];
-let row = [];
-const {id, name} = department;
-
-departmentLists= SELECT * FROM department;
-result();
-
-for (const {id, name} of department) {
-    let {id, name} = row[i];
-    departmentName.push(name);
-}
 
 function addRole() {
     inquirer.prompt([
@@ -150,14 +154,14 @@ function addRole() {
         {
             type: 'list',
             name: 'department',
-            choices: [departmentName]
+            choices: [departmentLists]
         }
     ])
         .then((response) => {
             db.connect(function (err) {
                 if (err) throw err;
                 console.log('Connected!');
-                let sql = `INSERT INTO role (title, salary, department_id) VALUES ('${response.role}', '${response.number}', '${response.department}')`;
+                let sql = `INSERT INTO role (title, salary, department_name) VALUES ('${response.role}', '${response.number}', '${response.department}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
                     console.log("role added!, id: " + result.insertId);
@@ -208,11 +212,27 @@ function addRole() {
 //         });
 //     });
 // });
-    
+
 // };
 
 // function updateEmployee() {
-//     .prompt
+//     inquirer.prompt {
+//      {
+//          type: 'list',
+//          name: 'employee',
+//          message: 'Which employee do you want to update?'
+//       },
+//      {
+//          type: 'list',
+//          name: 'role',
+//          message: 'Please choose a role for this employee.'
+//      }
+//      .then {
+//      db.connect(function (err))
+//      }
+//
+//
+//};
 //     -select an employee to update (list)
 //     -update the employee's role
 // .then
@@ -231,5 +251,4 @@ function updateDatabase() {
         console.log('Connected to the team_db database.')
     );
 };
-
 init()
