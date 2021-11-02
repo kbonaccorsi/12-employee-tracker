@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const mysql2 = require('mysql2');
 const cTable = require('console.table');
 const departmentNames = [];
+const managers = [];
+const roles = [];
 
 //connects to database
 const db = mysql2.createConnection(
@@ -29,7 +31,7 @@ function initialPrompting() {
             type: 'list',
             name: 'action',
             message: 'What do you want to do?',
-            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role', 'view all department names']
+            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role', 'all']
         }
     ])
         .then((response) => {
@@ -48,7 +50,7 @@ function initialPrompting() {
                     break;
                 case ('update an employee role'): updateEmployee()
                     break;
-                case ('view all department names'): allDepartmentNames()
+                case ('all'): allManagers()
                     break;
                 default:
             }
@@ -174,21 +176,37 @@ function addRole() {
         });
 };
 
-
-function managers() {
+function allRoles() {
     return db.connect(function (err) {
         if (err) throw err;
         console.log('~~~~~~~~~~~~~~~~~~~');
-        return db.promise().query('SELECT manager_id FROM employee')
+        return db.promise().query('SELECT role.title, role.id FROM role')
     })
         .then(([rows]) => {
-            let departments = rows;
-            const deptChoices = departments.map(({ id, first_name }) => ({
-                name: name,
+            let roleNames = rows;
+            const roleChoices = roleNames.map(({ title, id }) => ({
+                name: title,
                 value: id,
             }));
-            departmentNames.push(deptChoices);
-            return (deptChoices);
+            roles.push(roleChoices);
+            return (roleChoices);
+        });
+};
+
+function allManagers() {
+    return db.connect(function (err) {
+        if (err) throw err;
+        console.log('~~~~~~~~~~~~~~~~~~~');
+        return db.promise().query('SELECT id, first_name, last_name FROM employee WHERE (id IN (SELECT manager_id FROM employee))')
+    })
+        .then(([rows]) => {
+            let managerNames = rows;
+            const managerChoices = managerNames.map(({ id, first_name, last_name }) => ({
+                name: (first_name +" " + last_name),
+                value: id,
+            }));
+            managers.push(managerChoices);
+            return (managerChoices);
         });
 };
 
@@ -208,24 +226,21 @@ function addEmployee() {
         {
             type: 'list',
             name: 'role',
-            message: 'What role will the employee have?'
+            message: 'What role will this employee have?',
+            choices: currentAnswers => (allRoles())
         },
         {
-            type: 'input',
-            name: 'mFirstName',
-            message: 'What is the first name of this employee\'s manager?'
-        },
-        {
-            type: 'input',
-            name: 'mLastName',
-            message: 'What is the last name of this employee\'s manager?'
+            type: 'list',
+            name: 'manager',
+            message: 'Which manager will oversee this employee?',
+            Choices: currentAnswers => (allManagers())
         }
     ])
         .then((response) => {
             db.connect(function (err) {
                 if (err) throw err;
                 console.log('Connected!');
-                let sql = `INSERT INTO employee (first_name, last_name, role, manager_id) VALUES ( '${response.eFirstName}', '${response.eLastName}', '${response.role}', ')`;
+                let sql = `INSERT INTO employee (first_name, last_name, role, manager_id) VALUES ( '${response.efirstName}', '${response.elastName}', '${response.role}', '${response.manager}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
                     console.log("department added!, id: " + result.insertId);
