@@ -5,6 +5,7 @@ const cTable = require('console.table');
 const departmentNames = [];
 const managers = [];
 const roles = [];
+const employees = [];
 
 //connects to database
 const db = mysql2.createConnection(
@@ -50,7 +51,7 @@ function initialPrompting() {
                     break;
                 case ('update an employee role'): updateEmployee()
                     break;
-                case ('all'): allManagers()
+                case ('all'): allEmployees()
                     break;
                 default:
             }
@@ -202,7 +203,7 @@ function allManagers() {
         .then(([rows]) => {
             let managerNames = rows;
             const managerChoices = managerNames.map(({ id, first_name, last_name }) => ({
-                name: (first_name +" " + last_name),
+                name: (first_name + " " + last_name),
                 value: id,
             }));
             managers.push(managerChoices);
@@ -233,14 +234,14 @@ function addEmployee() {
             type: 'list',
             name: 'manager',
             message: 'Which manager will oversee this employee?',
-            Choices: currentAnswers => (allManagers())
+            choices: currentAnswers => (allManagers())
         }
     ])
         .then((response) => {
             db.connect(function (err) {
                 if (err) throw err;
                 console.log('Connected!');
-                let sql = `INSERT INTO employee (first_name, last_name, role, manager_id) VALUES ( '${response.efirstName}', '${response.elastName}', '${response.role}', '${response.manager}')`;
+                let sql = `INSERT INTO employee (first_name, last_name, role, manager_id) VALUES ( '${response.eFirstName}', '${response.eLastName}', '${response.role}', '${response.manager}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
                     console.log("department added!, id: " + result.insertId);
@@ -250,43 +251,52 @@ function addEmployee() {
         });
 };
 
-
-
-
-// function updateEmployee() {
-//     inquirer.prompt {
-//      {
-//          type: 'list',
-//          name: 'employee',
-//          message: 'Which employee do you want to update?'
-//       },
-//      {
-//          type: 'list',
-//          name: 'role',
-//          message: 'Please choose a role for this employee.'
-//      }
-//      .then {
-//      db.connect(function (err))
-//      }
-//
-//
-//};
-//     -select an employee to update (list)
-//     -update the employee's role
-// .then
-//     -information is updated in the database
-//          -db.query(update_employee.sql) 
-// };
-
-function updateDatabase() {
-    const db = mysql2.createConnection(
-        {
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'team_db'
-        },
-        console.log('Connected to the team_db database.')
-    );
+function allEmployees() {
+    return db.connect(function (err) {
+        if (err) throw err;
+        console.log('~~~~~~~~~~~~~~~~~~~');
+        return db.promise().query('SELECT id, first_name, last_name FROM employee')
+    })
+        .then(([rows]) => {
+            let employeeNames = rows;
+            const employeeChoices = employeeNames.map(({ id, first_name, last_name }) => ({
+                name: (first_name + " " + last_name),
+                value: id,
+            }));
+            employees.push(employeeChoices);
+            return (employeeChoices);
+        });
 };
+
+
+function updateEmployee() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employee',
+            message: 'Which employee do you want to update?',
+            choices: currentAnswsers => (allEmployees())
+        },
+        {
+            type: 'list',
+            name: 'role',
+            message: 'Please choose a role for this employee.',
+            choices: currentAnswers => (allRoles())
+        }
+    ])
+        .then((response) => {
+        db.connect(function (err) {
+            if (err) throw err;
+            console.log('Connected!');
+            let sql = `UPDATE employee SET role_id = '${response.role}' WHERE id = '${response.employee}'`;
+            db.query(sql, function (err) {
+                if (err) throw err;
+                console.log("department added!, id: ");
+                initialPrompting();
+            });
+        });
+    });
+
+};
+
 init()
