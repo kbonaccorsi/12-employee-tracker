@@ -4,28 +4,12 @@
 Build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
 
 
-Walkthrough video:
-GitHub Repo:
+Walkthrough video: (insert after making walkthrough video)
+GitHub Repo: https://github.com/kbonaccorsi/12-employee-tracker
 
 
-## Bonus
+## INSTALL
+You need to npm install, and then in the console use mysql -u root -p, and the password "root".  Then node.js, and the prompting will begin.
 
-Try to add some additional functionality to your application, such as the ability to do the following:
-
-* Update employee managers.
-
-* View employees by manager.
-
-* View employees by department.
-
-* Delete departments, roles, and employees.
-
-* View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
-
-
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-* The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
+## AUTHORS AND ACKNOWLEDGEMENTS
+Kaileigh Bonacorsi

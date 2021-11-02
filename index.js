@@ -51,8 +51,6 @@ function initialPrompting() {
                     break;
                 case ('update an employee role'): updateEmployee()
                     break;
-                case ('all'): allEmployees()
-                    break;
                 default:
             }
         });
@@ -67,6 +65,7 @@ function viewDepartments() {
         db.query(sql, function (err, result, fields) {
             if (err) throw err;
             console.table(result);
+            console.log('')
             initialPrompting();
         });
     });
@@ -81,6 +80,7 @@ function viewRoles() {
         db.query(sql, function (err, result) {
             if (err) throw err;
             console.table(result);
+            console.log('')
             initialPrompting();
         });
     });
@@ -95,6 +95,7 @@ function viewEmployees() {
         db.query(sql, function (err, result) {
             if (err) throw err;
             console.table(result);
+            console.log('')
             initialPrompting();
         });
     });
@@ -117,7 +118,8 @@ function addDepartment() {
                 let sql = `INSERT INTO department (name) VALUES ( '${response.department}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
-                    console.log("department added!, id: " + result.insertId);
+                    console.log('Department added!, id: ' + result.insertId);
+                    console.log('')
                     initialPrompting();
                 });
             });
@@ -170,7 +172,8 @@ function addRole() {
                 let sql = `INSERT INTO role (title, salary, department_id) VALUES ('${response.role}', '${response.salary}', '${response.department}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
-                    console.log("role added!, id: " + result.insertId);
+                    console.log('Role added!, id: ' + result.insertId);
+                    console.log('')
                     initialPrompting();
                 });
             });
@@ -241,10 +244,11 @@ function addEmployee() {
             db.connect(function (err) {
                 if (err) throw err;
                 console.log('Connected!');
-                let sql = `INSERT INTO employee (first_name, last_name, role, manager_id) VALUES ( '${response.eFirstName}', '${response.eLastName}', '${response.role}', '${response.manager}')`;
+                let sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ( '${response.eFirstName}', '${response.eLastName}', '${response.role}', '${response.manager}')`;
                 db.query(sql, function (err, result) {
                     if (err) throw err;
-                    console.log("department added!, id: " + result.insertId);
+                    console.log('Employee added!, id: ' + result.insertId);
+                    console.log('')
                     initialPrompting();
                 });
             });
@@ -291,7 +295,8 @@ function updateEmployee() {
             let sql = `UPDATE employee SET role_id = '${response.role}' WHERE id = '${response.employee}'`;
             db.query(sql, function (err) {
                 if (err) throw err;
-                console.log("department added!, id: ");
+                console.log('Employee updated');
+                console.log('')
                 initialPrompting();
             });
         });
